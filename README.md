@@ -38,17 +38,27 @@ Created by Alex Lee and Eli Raybon over 3 days.
 -  User Authentication
 
 
+---
 
-From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
+
+## Mobile-first Design
+One of our main goals for this application was to create a responsive user interface that provides a visually-pleasing and content-rich experience across all devices. We wanted our application to be as clean and minimal as Instagram, while still applying our own musical twist. 
+
+
 <p align="center">
-  <img height="600px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof2.png">
-  <img height="600px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/photo-show-mobile.png">
+  <img height="600px" width="350px"  src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof2.png">
+  <img height="600px" width="350px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/photo-show-mobile.png">
 </p>
+
 <p align="center">
   <img src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof1.png">
 </p>
 
 
+---
+
+
+From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
 
 <p align="center">
   <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/feed1.PNG">
