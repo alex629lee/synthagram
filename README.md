@@ -103,7 +103,7 @@ handleTap = photoId => {
 }
 ```
 
-
+---
 
 ## Photo Uploads using AWS S3
 
@@ -116,7 +116,7 @@ Users can post pictures using the drag and drop file uploader (desktop) or by ta
 </p>
 
 
-When users upload photos, the photos are stored using AWS S3 Cloud services, allowing for our application to have faster performance and improved scalability. 
+When users upload photos, the photos are stored using AWS S3 Cloud services, allowing our application to have faster performance and improved scalability. 
 
 
 In addition, the feed is populated by the most recent photos from the users you follow, and photos in the feed are sorted using a recursive quicksort algorithm. 
