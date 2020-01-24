@@ -61,11 +61,14 @@ sortByDate = photos => {
 ```
 
 From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
-
 <p align="center">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/profile1.PNG">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/profile2.PNG">
+  <img height="600px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof2.png">
+  <img height="600px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/photo-show-mobile.png">
 </p>
+<p align="center">
+  <img src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof1.png">
+</p>
+
 
 
 If you don't have enough synths to look at, you can head over to the explore page using the compass icon in the navbar. There, you will be served an index of users you might want to follow as well as more musical madness. 
