@@ -62,9 +62,11 @@ Shown below is an example of the grid's behavior on a large desktop window.
   <img src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof1.png">
 </p>
 
-The desktop interface includes some additional features such as showing a modal on hover of a thumbnail image, which displays the number of likes and comments for that photo. We also added drag-and-drop posting functionality to allow desktop users to upload photos more comfortably.
+The desktop interface includes some additional features such as showing a modal on hover of a thumbnail image, which displays the number of likes and comments for that photo. 
+
 
 ---
+
 
 ## Double-Tap to Like Photos
 
@@ -76,7 +78,9 @@ When viewing someone's post, the user can like and unlike the photo by quickly t
   <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/feed2.PNG">
 </p>
 
+
 To have this modal transition smoothly in and out, we integrated jQuery into our application and used the jQuery `animate` function combined with some React.js code to determine whether the timing of the two taps were close enough in time to trigger a "like" event.
+
 
 ```javascript
 handleTap = photoId => {
@@ -97,19 +101,25 @@ handleTap = photoId => {
     setTimeout(() => this.setState({ tapped: false }), 500);
   }
 }
-
 ```
 
 
 
+## Photo Uploads using AWS S3
 
----
-
-The photos above give you a quick look at the main feed of Synthagram. Your feed is populated by the most recent photos of the users that you follow. You can double-tap a photo to like it, which triggers an animation.  
+Users can post pictures using the drag and drop file uploader (desktop) or by tapping the upload box (mobile). On mobile, the uploader gives you easy access to your camera roll. Once a photo is chosen, you're given a preview to make sure everything looks good before posting!
 
 
-From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
-Photos in the feed are sorted using a recurive quicksort algorithm. 
+<p align="center">
+  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/post1.PNG">
+  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/post2.PNG">
+</p>
+
+
+When users upload photos, the photos are stored using AWS S3 Cloud services, allowing for our application to have faster performance and improved scalability. 
+
+
+In addition, the feed is populated by the most recent photos from the users you follow, and photos in the feed are sorted using a recursive quicksort algorithm. 
 
 ```js
 sortByDate = photos => {
@@ -124,57 +134,3 @@ sortByDate = photos => {
   return older.concat([pivotPhoto]).concat(newer);
 } 
 ```
-
-If you don't have enough synths to look at, you can head over to the explore page using the compass icon in the navbar. There, you will be served an index of users you might want to follow as well as more musical madness. 
-
-<p align="center">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/explore.PNG">
-</p>
-
-You can post your own pictures using the drag and drop file uplaoder (desktop) or by tapping the upload box (mobile). On mobile, the uploader gives you easy access to your camera roll. Once a photo is chosen, you're given a preview to make sure everything looks good before posting!
-
-<p align="center">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/post1.PNG">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/post2.PNG">
-</p>
-
-Along with liking photos, you can also leave comments on them, as well as reply to comments. 
-
-<p align="center">
-  <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/comments.PNG">
-</p>
-
-The biggest backend challenge we ran into was deleting comments. Sounds simple right? But a comment can't simply be deleted from the database or it would leave behind several ghost references in its corresponding user and photo documents. Those are easy enough to clean up, so what's the big deal? Replies! When a comment is deleted, all of its replies also need to be deleted, and all of the replies of the replies. On and on and on. Sounds like a recursion problem! 
-
-To acheive this, we needed a way to loop over a root comment's replies one by one, recurively deleting the reply as well as all of it's nested replies. But comment deletion is an asynchronous process, so we started by writing a new verion of the forEach method that utilizes async/await. 
-
-```js
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
-};
-```
-
-We also wrote a helper method called removeSingleComment that takes care of deleting a comment and removing all references to it from the database. 
-
-The final result was this removeNestedReplies function. It takes in a root comment and recursively deletes the comment and all of it's nested replies.
-
-```js
-async function removeNestedReplies(rootComment) {
-  const Comment = mongoose.model('comments');
-
-  if (!rootComment.replies.length) {
-    return removeSingleComment(rootComment)
-  }
-
-  asyncForEach(rootComment.replies, async (commentId) => {
-    const comment = await Comment.findById(commentId);
-    await removeNestedReplies(comment);
-  })
-
-  return removeSingleComment(rootComment);
-};
-```
-
-
