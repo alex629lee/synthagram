@@ -24,6 +24,7 @@ Created by Alex Lee and Eli Raybon over 3 days.
 - AWS S3
 - Multer (for uploading to S3)
 - BCrypt (for user auth)
+- jQuery
 - HTML
 - CSS 
 
