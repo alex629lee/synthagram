@@ -7,7 +7,7 @@
 
 # <h1 align="center">Synthagram</h1>
 
-### [Live Link](http://synthagram.herokuapp.com/)
+#### [Live Link](http://synthagram.herokuapp.com/)
 
 Synthagram is a music-themed clone of Instagram built with the MERN stack + GraphQL/Apollo. The design is simple, clean, and mobile-first, resulting in an app that is responsive across all screen sizes. 
 
@@ -41,10 +41,9 @@ Created by Alex Lee and Eli Raybon over 3 days.
 ---
 
 
-## Mobile-first Design
+## Mobile-First Design
 
 One of our main goals for this application was to create a responsive user interface that provides a visually-pleasing and content-rich experience across all devices. We wanted our application to be as clean and minimal as Instagram, while still applying our thematic twist. 
-
 
 
 <p align="center">
@@ -55,7 +54,7 @@ One of our main goals for this application was to create a responsive user inter
 
 Of course, we wanted to adopt Instagram's signature squares in our implementation for displaying both enlarged images and thumbnails. 
 
-For the thumbnails, this meant creating a responsive CSS grid-based layout system which appropriately resizes and positions the content according to the width of the viewport. At some point, the thumbnail images would need to stop growing in size and instead be spaced out and centered, which we accomplished using careful, calculated media queries. 
+For the thumbnails, this meant creating a responsive CSS grid-based layout system which appropriately resizes and positions the content according to the width of the viewport. At some point, the thumbnail images would need to stop growing in size and instead be spaced out and centered, which we accomplished using carefully established media query breakpoints. 
 
 Shown below is an example of the grid's behavior on a large desktop window.
 
@@ -67,16 +66,49 @@ The desktop interface includes some additional features such as showing a modal 
 
 ---
 
+## Double-Tap to Like Photos
 
-From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
+When viewing someone's post, the user can like and unlike the photo by quickly tapping/clicking it twice. We added a modal that appears when a user likes a photo via double-tapping to convey a more interactive experience. 
+
 
 <p align="center">
   <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/feed1.PNG">
   <img height="600px" src="https://github.com/eliraybon/synthagram/blob/master/client/public/assets/images/feed2.PNG">
 </p>
 
+To have this modal transition smoothly in and out, we integrated jQuery into our application and used the jQuery `animate` function combined with some React.js code to determine whether the timing of the two taps were close enough in time to trigger a "like" event.
+
+```javascript
+handleTap = photoId => {
+  if (this.state.tapped) {
+    const likeButton = document.getElementById(`toggle-like-${photoId}`);
+    likeButton.click();
+    if (!likeButton.children[0].classList[2]) {
+      $(`#just-liked-modal-${photoId}`).animate({ opacity: 1 }, 200);
+      this.setState({ justLiked: true });
+
+      setTimeout(() => {
+        this.setState({ justLiked: false });
+        $(`#just-liked-modal-${photoId}`).animate({ opacity: 0 }, 600);
+      }, 1000);
+    }
+  } else {
+    this.setState({ tapped: true });
+    setTimeout(() => this.setState({ tapped: false }), 500);
+  }
+}
+
+```
+
+
+
+
+---
+
 The photos above give you a quick look at the main feed of Synthagram. Your feed is populated by the most recent photos of the users that you follow. You can double-tap a photo to like it, which triggers an animation.  
 
+
+From your feed, you quickly jump to the profile of a particular user, where can can browse all of their synthtastic snaps.
 Photos in the feed are sorted using a recurive quicksort algorithm. 
 
 ```js
