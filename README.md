@@ -47,20 +47,23 @@ One of our main goals for this application was to create a responsive user inter
 
 
 
-
 <p align="center">
   <img height="600px" width="350px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof2.png">
   <img height="600px" width="350px" src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/photo-show-mobile.png">
 </p>
 
-Of course, we wanted to adopt Instagram's signature squares in our implementation for displaying both enlarged images and thumbnails. For the thumbnails, this meant creating a responsive CSS grid-based layout system which appropriately resizes and positions the content according to the width of the viewport. At some point, the thumbnail images would need to stop growing in size and instead be spaced out and centered, which we accomplished using careful, calculated media queries. 
 
-Below is an example of the grid's behavior on a large desktop window.
+Of course, we wanted to adopt Instagram's signature squares in our implementation for displaying both enlarged images and thumbnails. 
+
+For the thumbnails, this meant creating a responsive CSS grid-based layout system which appropriately resizes and positions the content according to the width of the viewport. At some point, the thumbnail images would need to stop growing in size and instead be spaced out and centered, which we accomplished using careful, calculated media queries. 
+
+Shown below is an example of the grid's behavior on a large desktop window.
 
 <p align="center">
   <img src="https://github.com/alex629lee/synthagram/blob/master/client/public/assets/images/prof1.png">
 </p>
 
+The desktop interface includes some additional features such as showing a modal on hover of a thumbnail image, which displays the number of likes and comments for that photo. We also added drag-and-drop posting functionality to allow desktop users to upload photos more comfortably.
 
 ---
 
